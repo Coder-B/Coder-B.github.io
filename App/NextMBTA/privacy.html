@@ -1,85 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NextMBTA — Privacy Policy</title>
-  <link rel="stylesheet" href="../../style.css" />
-  <style>
-    .content {
-      max-width: 680px;
-      margin: 0 auto;
-    }
-    .content h2 {
-      font-size: 1.25rem;
-      margin: 2rem 0 0.5rem;
-      color: var(--text);
-    }
-    .content p, .content li {
-      color: var(--muted);
-      font-size: 0.95rem;
-      margin-bottom: 0.5rem;
-    }
-    .content ul {
-      padding-left: 1.25rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.3rem;
-    }
-    .content a {
-      color: var(--accent);
-      text-decoration: none;
-    }
-    .content a:hover { text-decoration: underline; }
-    .updated {
-      color: var(--muted);
-      font-size: 0.85rem;
-      margin-bottom: 1.5rem;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MBTA Tracker - Privacy Policy</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", sans-serif;
+            background: #0a0a0a;
+            color: #e0e0e0;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 60px 24px;
+        }
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            letter-spacing: -1px;
+            color: #ffffff;
+            margin-bottom: 8px;
+        }
+        .subtitle {
+            font-size: 1rem;
+            color: #888;
+            margin-bottom: 48px;
+        }
+        h2 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-top: 36px;
+            margin-bottom: 12px;
+        }
+        p {
+            font-size: 1rem;
+            color: #b0b0b0;
+            margin-bottom: 16px;
+        }
+        ul {
+            padding-left: 20px;
+            margin-bottom: 16px;
+        }
+        li {
+            font-size: 1rem;
+            color: #b0b0b0;
+            margin-bottom: 8px;
+        }
+        a {
+            color: #4a9eff;
+            text-decoration: none;
+        }
+        a:hover { text-decoration: underline; }
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            font-size: 0.85rem;
+            color: #555;
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <div style="max-width:680px;margin:0 auto;">
-      <a href="../../index.html" style="color:var(--muted);font-size:0.85rem;text-decoration:none;">← Coder-B</a>
-      <h1 style="margin-top:0.75rem;">NextMBTA</h1>
-      <p class="tagline">Privacy Policy</p>
+    <div class="container">
+        <h1>Privacy Policy</h1>
+        <p class="subtitle">MBTA Tracker &middot; Last updated: May 5, 2026</p>
+
+        <h2>Overview</h2>
+        <p>MBTA Tracker is designed with your privacy in mind. We do not collect, store, or share any personal information. This policy explains what data the app uses and how it is handled.</p>
+
+        <h2>Data We Do Not Collect</h2>
+        <p>MBTA Tracker does <strong>not</strong> collect any of the following:</p>
+        <ul>
+            <li>Personal information (name, email, phone number)</li>
+            <li>Location data</li>
+            <li>Device identifiers or advertising IDs</li>
+            <li>Usage analytics or tracking data</li>
+            <li>Browsing or search history</li>
+        </ul>
+
+        <h2>Data Stored on Your Device</h2>
+        <p>The app stores the following data <strong>locally on your device only</strong>:</p>
+        <ul>
+            <li><strong>Tracked routes:</strong> The subway lines and bus routes you choose to follow, including stop and direction preferences.</li>
+            <li><strong>Notification schedules:</strong> The days and time windows you configure for arrival alerts.</li>
+            <li><strong>Onboarding status:</strong> Whether you have completed the initial setup.</li>
+        </ul>
+        <p>This data never leaves your device and is not transmitted to any server.</p>
+
+        <h2>Network Requests</h2>
+        <p>The app makes network requests to the MBTA's public API (<strong>mbta.com</strong>) to fetch real-time arrival predictions. These requests contain only the route, stop, and direction information needed to retrieve predictions. No personal data is sent.</p>
+
+        <h2>Third-Party Services</h2>
+        <p>MBTA Tracker does not use any third-party analytics, advertising, or tracking services. There are no SDKs that collect data in the background.</p>
+
+        <h2>Notifications</h2>
+        <p>If you enable arrival alerts, notifications are generated locally on your device based on your configured schedule. No push notification servers or external services are involved.</p>
+
+        <h2>Widgets</h2>
+        <p>The lock screen widget accesses your tracked route data via a shared App Group container on your device. This data stays on your device and is used solely to display arrival countdowns.</p>
+
+        <h2>Children's Privacy</h2>
+        <p>MBTA Tracker does not collect data from anyone, including children under the age of 13.</p>
+
+        <h2>Changes to This Policy</h2>
+        <p>If we update this privacy policy, the changes will be posted on this page with an updated date. Since the app collects no data, we do not anticipate significant changes.</p>
+
+        <h2>Contact</h2>
+        <p>If you have questions about this privacy policy, contact us at:<br>
+        <a href="mailto:fuweiqiang68@gmail.com">fuweiqiang68@gmail.com</a></p>
+
+        <div class="footer">
+            <p>MBTA Tracker &copy; 2026. This app is not affiliated with or endorsed by the MBTA.</p>
+        </div>
     </div>
-  </header>
-
-  <main>
-    <div class="content">
-      <p class="updated">Last updated: May 5, 2026</p>
-
-      <p>NextMBTA ("the App") is built and maintained by Coder-B. This page explains what data the App collects and how it is used.</p>
-
-      <h2>Information We Do Not Collect</h2>
-      <p>The App does not collect, store, or share any personally identifiable information. We do not require an account or login.</p>
-
-      <h2>Location Data</h2>
-      <p>The App may request access to your device's location solely to show nearby stops and provide relevant transit predictions. Location data is used on-device only and is never transmitted to our servers.</p>
-
-      <h2>Third-Party Services</h2>
-      <p>The App fetches real-time transit data from the <a href="https://www.mbta.com/developers" target="_blank" rel="noopener">MBTA public API</a>. No personal data is sent as part of these requests. Please review the MBTA's own privacy policy for details on their data practices.</p>
-
-      <h2>Analytics</h2>
-      <p>The App does not use any third-party analytics or advertising SDKs.</p>
-
-      <h2>Children's Privacy</h2>
-      <p>The App does not knowingly collect any information from children under 13.</p>
-
-      <h2>Changes to This Policy</h2>
-      <p>If this policy changes, the updated version will be posted on this page with a revised date.</p>
-
-      <h2>Contact</h2>
-      <p>Questions? Email <a href="mailto:fuweiqiang68@gmail.com">fuweiqiang68@gmail.com</a>.</p>
-    </div>
-  </main>
-
-  <footer>
-    <div style="max-width:680px;margin:0 auto;border-top:1px solid var(--border);padding-top:1.5rem;">
-      <p>© 2026 Coder-B · <a href="support.html">Support</a></p>
-    </div>
-  </footer>
 </body>
 </html>
