@@ -3,606 +3,251 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BioPilot — Your Co-Pilot for Biomedical Research Integrity</title>
+  <title>BioPilot — Read biomedical papers with a built-in integrity check</title>
+  <meta name="description" content="BioPilot flags risky reagents and adds verified, structured commenting to PubMed, Nature, Cell, bioRxiv and 20+ journals — so you read biomedical papers smarter." />
+  <link rel="icon" href="icon.png" />
+  <link rel="canonical" href="https://coder-b.github.io/BroswerExtension/BioPilot/index.html" />
+
+  <!-- Open Graph / social sharing (absolute URLs required) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="BioPilot — Read biomedical papers with a built-in integrity check" />
+  <meta property="og:description" content="Reagent risk flags and verified, structured commenting on PubMed, Nature, Cell, bioRxiv and 20+ journals." />
+  <meta property="og:url" content="https://coder-b.github.io/BroswerExtension/BioPilot/index.html" />
+  <meta property="og:image" content="https://coder-b.github.io/BroswerExtension/BioPilot/icon.png" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="BioPilot — biomedical paper integrity checker" />
+  <meta name="twitter:description" content="Reagent risk flags and verified, structured commenting on 20+ journals." />
+  <meta name="twitter:image" content="https://coder-b.github.io/BroswerExtension/BioPilot/icon.png" />
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --bg: #0a0f1e;
-      --surface: #111827;
-      --card: #1a2235;
-      --border: #243050;
-      --accent: #3b82f6;
-      --accent-2: #10b981;
-      --warn: #ef4444;
-      --text: #e2e8f0;
-      --muted: #8896b0;
-      --font: "Inter", system-ui, sans-serif;
+      --blue-700: #1e40af;
+      --blue-600: #2563eb;
+      --blue-500: #3b82f6;
+      --slate-900: #0f172a;
+      --slate-700: #334155;
+      --slate-500: #64748b;
+      --slate-300: #cbd5e1;
+      --slate-100: #f1f5f9;
+      --slate-50: #f8fafc;
     }
-
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
     body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--font);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      color: var(--slate-900);
       line-height: 1.6;
+      background: #fff;
     }
+    .wrap { max-width: 960px; margin: 0 auto; padding: 0 24px; }
 
-    /* ── NAV ── */
-    nav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 1rem 2rem;
-      background: rgba(10, 15, 30, 0.85);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-    }
-    .logo {
-      font-size: 1.25rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      color: var(--text);
-    }
-    .logo span { color: var(--accent); }
-    nav a {
-      color: var(--muted);
-      text-decoration: none;
-      font-size: 0.9rem;
-      transition: color .2s;
-    }
-    nav a:hover { color: var(--text); }
-    .nav-links { display: flex; gap: 2rem; align-items: center; }
-    .btn-primary {
-      background: var(--accent);
-      color: #fff;
-      border: none;
-      padding: .5rem 1.2rem;
-      border-radius: 8px;
-      font-size: 0.9rem;
-      font-weight: 600;
-      cursor: pointer;
-      text-decoration: none;
-      transition: opacity .2s;
-    }
-    .btn-primary:hover { opacity: .85; }
-
-    /* ── HERO ── */
+    /* Hero */
     .hero {
-      text-align: center;
-      padding: 6rem 2rem 4rem;
-      max-width: 860px;
-      margin: 0 auto;
-    }
-    .badge {
-      display: inline-block;
-      background: rgba(59, 130, 246, .15);
-      border: 1px solid rgba(59, 130, 246, .4);
-      color: var(--accent);
-      font-size: .78rem;
-      font-weight: 600;
-      letter-spacing: .06em;
-      text-transform: uppercase;
-      padding: .3rem .9rem;
-      border-radius: 99px;
-      margin-bottom: 1.5rem;
-    }
-    h1 {
-      font-size: clamp(2rem, 5vw, 3.4rem);
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      line-height: 1.15;
-      margin-bottom: 1.25rem;
-    }
-    h1 em { font-style: normal; color: var(--accent); }
-    .hero p {
-      font-size: 1.15rem;
-      color: var(--muted);
-      max-width: 600px;
-      margin: 0 auto 2.5rem;
-    }
-    .hero-ctas { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-    .btn-secondary {
-      background: transparent;
-      color: var(--text);
-      border: 1px solid var(--border);
-      padding: .55rem 1.4rem;
-      border-radius: 8px;
-      font-size: .9rem;
-      font-weight: 500;
-      cursor: pointer;
-      text-decoration: none;
-      transition: border-color .2s;
-    }
-    .btn-secondary:hover { border-color: var(--accent); }
-
-    /* ── DEMO STRIP ── */
-    .demo-strip {
-      margin: 3rem auto;
-      max-width: 820px;
-      padding: 0 2rem;
-    }
-    .browser-shell {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      overflow: hidden;
-    }
-    .browser-bar {
-      background: var(--card);
-      display: flex;
-      align-items: center;
-      gap: .6rem;
-      padding: .75rem 1rem;
-      border-bottom: 1px solid var(--border);
-    }
-    .dot { width: 10px; height: 10px; border-radius: 50%; }
-    .dot-r { background: #ef4444; } .dot-y { background: #f59e0b; } .dot-g { background: #10b981; }
-    .url-bar {
-      flex: 1;
-      background: var(--bg);
-      border-radius: 6px;
-      padding: .28rem .75rem;
-      font-size: .8rem;
-      color: var(--muted);
-      margin-left: .5rem;
-    }
-    .paper-body { padding: 1.5rem 2rem; position: relative; }
-    .paper-title {
-      font-size: 1.1rem;
-      font-weight: 700;
-      margin-bottom: .75rem;
-      color: var(--text);
-    }
-    .paper-meta { font-size: .8rem; color: var(--muted); margin-bottom: 1rem; }
-    .paper-text { font-size: .88rem; color: #9caec8; line-height: 1.8; }
-    .tag-risk {
-      background: rgba(239, 68, 68, .15);
-      border-bottom: 2px solid var(--warn);
-      color: var(--text);
-      border-radius: 3px 3px 0 0;
-      padding: 0 2px;
-      cursor: pointer;
-      position: relative;
-    }
-    .tag-safe {
-      background: rgba(16, 185, 129, .12);
-      border-bottom: 2px solid var(--accent-2);
-      color: var(--text);
-      border-radius: 3px 3px 0 0;
-      padding: 0 2px;
-      cursor: pointer;
-    }
-    .tooltip-card {
-      display: inline-block;
-      position: absolute;
-      top: -115px;
-      left: 0;
-      width: 260px;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: .75rem 1rem;
-      font-size: .8rem;
-      z-index: 10;
-      box-shadow: 0 8px 32px rgba(0,0,0,.5);
-    }
-    .tooltip-card .tc-title { font-weight: 700; color: var(--text); margin-bottom: .3rem; }
-    .tc-badge-warn {
-      display: inline-block;
-      background: rgba(239,68,68,.2);
-      color: #f87171;
-      font-size: .7rem;
-      font-weight: 600;
-      border-radius: 4px;
-      padding: 1px 6px;
-      margin-bottom: .4rem;
-    }
-    .tc-badge-ok {
-      display: inline-block;
-      background: rgba(16,185,129,.2);
-      color: #34d399;
-      font-size: .7rem;
-      font-weight: 600;
-      border-radius: 4px;
-      padding: 1px 6px;
-    }
-    .tc-row { display: flex; justify-content: space-between; color: var(--muted); margin-top: .2rem; }
-    .pubpeer-bubble {
-      position: absolute;
-      right: 1.5rem;
-      top: 1.5rem;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: .5rem .8rem;
-      font-size: .78rem;
-      color: var(--accent);
-      font-weight: 600;
-    }
-
-    /* ── SECTION HEADINGS ── */
-    .section { max-width: 1100px; margin: 0 auto; padding: 4rem 2rem; }
-    .section-label {
-      font-size: .78rem;
-      font-weight: 700;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: .75rem;
-    }
-    .section-title {
-      font-size: clamp(1.6rem, 3vw, 2.2rem);
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      margin-bottom: 1rem;
-    }
-    .section-sub { color: var(--muted); font-size: 1rem; max-width: 540px; }
-
-    /* ── FEATURES GRID ── */
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.25rem;
-      margin-top: 3rem;
-    }
-    .feat-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 1.5rem;
-      transition: border-color .25s, transform .25s;
-    }
-    .feat-card:hover { border-color: var(--accent); transform: translateY(-2px); }
-    .feat-icon {
-      width: 42px;
-      height: 42px;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.3rem;
-      margin-bottom: 1rem;
-    }
-    .icon-blue { background: rgba(59,130,246,.15); }
-    .icon-green { background: rgba(16,185,129,.15); }
-    .icon-red { background: rgba(239,68,68,.15); }
-    .icon-purple { background: rgba(139,92,246,.15); }
-    .feat-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: .5rem; }
-    .feat-card p { font-size: .88rem; color: var(--muted); }
-    .tag-p0 {
-      display: inline-block;
-      font-size: .68rem;
-      font-weight: 700;
-      padding: 1px 7px;
-      border-radius: 99px;
-      margin-left: .5rem;
-      background: rgba(239,68,68,.2);
-      color: #f87171;
-    }
-    .tag-p1 {
-      display: inline-block;
-      font-size: .68rem;
-      font-weight: 700;
-      padding: 1px 7px;
-      border-radius: 99px;
-      margin-left: .5rem;
-      background: rgba(59,130,246,.2);
-      color: #93c5fd;
-    }
-
-    /* ── HOW IT WORKS ── */
-    .steps { display: flex; flex-direction: column; gap: 1.5rem; margin-top: 3rem; }
-    .step {
-      display: flex;
-      gap: 1.5rem;
-      align-items: flex-start;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 1.5rem;
-    }
-    .step-num {
-      flex-shrink: 0;
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background: var(--accent);
+      background: linear-gradient(135deg, var(--blue-700) 0%, var(--blue-500) 100%);
       color: #fff;
-      font-weight: 800;
-      font-size: .95rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .step h3 { font-size: .95rem; font-weight: 700; margin-bottom: .3rem; }
-    .step p { font-size: .87rem; color: var(--muted); }
-
-    /* ── DATA SOURCES ── */
-    .sources-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1rem;
-      margin-top: 2rem;
-    }
-    .source-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 1.2rem 1.5rem;
-    }
-    .source-card .src-name { font-weight: 700; font-size: .95rem; margin-bottom: .3rem; }
-    .source-card .src-desc { font-size: .82rem; color: var(--muted); }
-
-    /* ── KPI STRIP ── */
-    .kpi-strip {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1.5rem;
-      background: var(--surface);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      padding: 2.5rem 2rem;
-      justify-content: center;
-    }
-    .kpi {
       text-align: center;
-      min-width: 180px;
+      padding: 72px 24px 80px;
     }
-    .kpi-num {
-      font-size: 2rem;
-      font-weight: 800;
-      letter-spacing: -0.04em;
-      color: var(--accent);
+    .logo { font-size: 56px; }
+    .hero h1 { font-size: 38px; font-weight: 800; margin: 14px 0 8px; letter-spacing: -0.02em; }
+    .hero .tag { font-size: 19px; opacity: 0.92; max-width: 640px; margin: 0 auto 28px; }
+    .cta {
+      display: inline-flex; align-items: center; gap: 9px;
+      background: #fff; color: var(--blue-700);
+      font-size: 16px; font-weight: 700;
+      padding: 13px 26px; border-radius: 99px;
+      text-decoration: none;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+      transition: transform .12s ease;
     }
-    .kpi-label { font-size: .82rem; color: var(--muted); margin-top: .2rem; }
+    .cta:hover { transform: translateY(-2px); }
+    .cta-note { display: block; font-size: 13px; opacity: 0.8; margin-top: 12px; }
 
-    /* ── FOOTER ── */
-    footer {
-      text-align: center;
-      padding: 2.5rem 2rem;
-      color: var(--muted);
-      font-size: .85rem;
-      border-top: 1px solid var(--border);
+    /* Sections */
+    section { padding: 64px 0; }
+    .eyebrow {
+      text-transform: uppercase; letter-spacing: 0.08em; font-size: 12px;
+      font-weight: 700; color: var(--blue-600); text-align: center; margin-bottom: 8px;
     }
-    footer a { color: var(--accent); text-decoration: none; }
+    h2 { font-size: 28px; font-weight: 800; text-align: center; letter-spacing: -0.01em; margin-bottom: 12px; }
+    .lede { text-align: center; color: var(--slate-500); max-width: 620px; margin: 0 auto 40px; font-size: 17px; }
+
+    .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+    .card {
+      border: 1px solid #e8edf3; border-radius: 16px; padding: 26px 24px;
+      background: var(--slate-50);
+    }
+    .card .ico { font-size: 30px; }
+    .card h3 { font-size: 18px; margin: 12px 0 6px; }
+    .card p { color: var(--slate-700); font-size: 15px; }
+
+    /* Why */
+    .why { background: var(--slate-50); }
+    .why ul { max-width: 680px; margin: 0 auto; list-style: none; }
+    .why li {
+      display: flex; gap: 12px; align-items: flex-start;
+      padding: 14px 0; border-bottom: 1px solid #e8edf3; font-size: 16px; color: var(--slate-700);
+    }
+    .why li:last-child { border-bottom: none; }
+    .why .check { color: #15803d; font-weight: 800; flex-shrink: 0; }
+    .why strong { color: var(--slate-900); }
+
+    /* Sites */
+    .sites { text-align: center; }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; max-width: 760px; margin: 0 auto; }
+    .chip {
+      font-size: 13px; color: var(--slate-700); background: var(--slate-100);
+      border-radius: 99px; padding: 6px 14px;
+    }
+    .chip.more { background: #eff6ff; color: var(--blue-600); font-weight: 600; }
+
+    /* Categories */
+    .cats { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; max-width: 720px; margin: 0 auto; }
+    .cat-badge { font-size: 14px; padding: 7px 14px; border-radius: 99px; font-weight: 600; }
+    .c1 { background: #dcfce7; color: #15803d; }
+    .c2 { background: #fee2e2; color: #b91c1c; }
+    .c3 { background: #fef9c3; color: #a16207; }
+    .c4 { background: #ffe4e6; color: #be123c; }
+    .c5 { background: #ffedd5; color: #c2410c; }
+    .c6 { background: #ede9fe; color: #6d28d9; }
+    .c7 { background: #dbeafe; color: #1d4ed8; }
+
+    /* Privacy strip */
+    .privacy-strip {
+      background: linear-gradient(135deg, var(--blue-700) 0%, var(--blue-500) 100%);
+      color: #fff; text-align: center; border-radius: 20px; padding: 44px 28px; margin: 0 24px;
+    }
+    .privacy-strip h2 { color: #fff; }
+    .privacy-strip p { opacity: 0.92; max-width: 560px; margin: 0 auto 22px; }
+    .privacy-strip a {
+      display: inline-block; background: rgba(255,255,255,0.15); color: #fff;
+      padding: 10px 22px; border-radius: 99px; text-decoration: none; font-weight: 600;
+    }
+    .privacy-strip a:hover { background: rgba(255,255,255,0.28); }
+
+    /* Footer */
+    footer { text-align: center; color: var(--slate-500); font-size: 14px; padding: 40px 24px 56px; }
+    footer a { color: var(--blue-600); text-decoration: none; }
     footer a:hover { text-decoration: underline; }
-
-    @media (max-width: 600px) {
-      nav { padding: .8rem 1rem; }
-      .nav-links { gap: 1rem; }
-      h1 { font-size: 1.9rem; }
-      .step { flex-direction: column; gap: 1rem; }
-    }
   </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav>
-  <div class="logo">Bio<span>Pilot</span></div>
-  <div class="nav-links">
-    <a href="#features">Features</a>
-    <a href="#how">How it works</a>
-    <a href="#data">Data</a>
-    <a href="#install" class="btn-primary">Add to Chrome</a>
-  </div>
-</nav>
+  <header class="hero">
+    <div class="logo">🔬</div>
+    <h1>BioPilot</h1>
+    <p class="tag">Read biomedical papers with a built-in integrity check — reagent risk flags and verified, structured commenting, right on the page.</p>
+    <a class="cta" href="#" id="install-link">⬇ Add to Chrome</a>
+    <span class="cta-note">Free · works on PubMed, Nature, Cell, bioRxiv &amp; 20+ journals</span>
+  </header>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="badge">Browser Extension &bull; AI-Powered</div>
-  <h1>Your Co-Pilot for<br><em>Biomedical Research Integrity</em></h1>
-  <p>BioPilot automatically flags risky reagents, surfaces reproducibility warnings, and brings peer commentary — all inline in PubMed and journal pages, without switching tabs.</p>
-  <div class="hero-ctas">
-    <a href="#install" class="btn-primary">Add to Chrome — it's free</a>
-    <a href="#features" class="btn-secondary">See what it does</a>
-  </div>
-</section>
+  <section class="wrap">
+    <div class="eyebrow">The problem</div>
+    <h2>Bad reagents and irreproducible results cost months</h2>
+    <p class="lede">Misidentified cell lines, non-specific antibodies, and experiments that simply don't replicate are hidden in the literature. BioPilot surfaces them while you read — and lets the community flag them for everyone after you.</p>
 
-<!-- BROWSER DEMO -->
-<div class="demo-strip">
-  <div class="browser-shell">
-    <div class="browser-bar">
-      <div class="dot dot-r"></div>
-      <div class="dot dot-y"></div>
-      <div class="dot dot-g"></div>
-      <div class="url-bar">pubmed.ncbi.nlm.nih.gov/38204711/</div>
-    </div>
-    <div class="paper-body">
-      <div class="pubpeer-bubble">💬 PubPeer: 4 comments</div>
-      <div class="paper-title">PTEN Loss Promotes Invasion via Matrix Metalloproteinase Upregulation in <em>HeLa</em> Cells</div>
-      <div class="paper-meta">Nature Cell Biology &bull; 2024 &bull; DOI: 10.1038/s41556-024-01234-5</div>
-      <div class="paper-text">
-        …Immunoblotting was performed using anti-PTEN antibody
-        (<span class="tag-risk" style="position:relative;">
-          AB_2243785
-          <span class="tooltip-card">
-            <div class="tc-title">Anti-PTEN (AB_2243785)</div>
-            <div class="tc-badge-warn">⚠ Cross-reactivity flagged</div>
-            <div class="tc-row"><span>Used in papers</span><span>1,204</span></div>
-            <div class="tc-row"><span>Concern rate</span><span style="color:#f87171">8.3%</span></div>
-            <div class="tc-row"><span>Source</span><span>Cellosaurus</span></div>
-          </span>
-        </span>).
-        Cell line used was
-        <span class="tag-safe">HeLa CCL-2</span>
-        <!--safe-->.
-        Cells were maintained in DMEM supplemented with 10% FBS and 1% penicillin-streptomycin.
-        Western blot quantification showed a 3.2-fold increase in MMP-9 expression
-        (p &lt; 0.001) compared to control conditions…
+    <div class="features">
+      <div class="card">
+        <div class="ico">🧫</div>
+        <h3>Reagent risk flags, automatically</h3>
+        <p>BioPilot detects antibodies, cell lines, and plasmids by RRID or catalog number, and shows a hover card with official details and warnings — like cell lines flagged by ICLAC as misidentified or cross-contaminated. Avoid the landmine before you order.</p>
+      </div>
+      <div class="card">
+        <div class="ico">💬</div>
+        <h3>Structured, verified commenting</h3>
+        <p>Anchor a comment to any passage and sort it into research-relevant categories. No free-for-all threads — every comment carries a clear, high-signal label that other scientists can trust.</p>
+      </div>
+      <div class="card">
+        <div class="ico">🪪</div>
+        <h3>Trust you can verify</h3>
+        <p>Comments can carry a verified <strong>ORCID&nbsp;✓</strong> badge and institution. Prefer privacy? Post anonymously — you're still authenticated behind the scenes, so there's no spam, but your name stays hidden.</p>
       </div>
     </div>
-  </div>
-  <p style="text-align:center;font-size:.8rem;color:var(--muted);margin-top:.75rem;">
-    Red underline = flagged reagent &nbsp;&bull;&nbsp; Green underline = verified &nbsp;&bull;&nbsp; Hover for instant card
-  </p>
-</div>
+  </section>
 
-<!-- FEATURES -->
-<section class="section" id="features">
-  <div class="section-label">Core Features</div>
-  <div class="section-title">Everything you need to read papers with confidence</div>
-  <p class="section-sub">BioPilot layers peer-review intelligence on top of every biomedical paper you read — no copy-paste, no tab-switching.</p>
-
-  <div class="features-grid">
-    <div class="feat-card">
-      <div class="feat-icon icon-red">🔬</div>
-      <h3>Reagent Auto-Tagging <span class="tag-p0">P0</span></h3>
-      <p>Automatically identifies antibody catalogue numbers (Cat#), cell line names, and RRIDs in PubMed, Nature, and Cell pages. Hover to see provenance, usage frequency, and risk flags from ICLAC and Cellosaurus.</p>
-    </div>
-
-    <div class="feat-card">
-      <div class="feat-icon icon-blue">💬</div>
-      <h3>Structured Commenting <span class="tag-p0">P0</span></h3>
-      <p>Attach peer comments categorised as <em>Missing detail</em>, <em>Reagent anomaly</em>, <em>Image concern</em>, or <em>Reproduced</em>. Identity verified via ORCID or institutional email — transparent but pseudonymous.</p>
-    </div>
-
-    <div class="feat-card">
-      <div class="feat-icon icon-green">🔗</div>
-      <h3>PubPeer Integration <span class="tag-p0">P0</span></h3>
-      <p>See how many PubPeer discussions exist for any paper — displayed inline next to the title. No more manually searching another site; all concerns surface where you already are.</p>
-    </div>
-
-    <div class="feat-card">
-      <div class="feat-icon icon-purple">🖼</div>
-      <h3>AI Image Consistency Check <span class="tag-p1">P1</span></h3>
-      <p>Select two Western blot bands or micrograph panels; BioPilot runs a similarity check in the background and highlights potential duplications, crops, or suspicious pixel patterns.</p>
-    </div>
-
-    <div class="feat-card">
-      <div class="feat-icon icon-blue">📋</div>
-      <h3>Protocol Parser <span class="tag-p1">P1</span></h3>
-      <p>Dense Methods sections are re-structured into clean step-by-step checklists by an LLM, making it instantly obvious what was — and wasn't — reported.</p>
-    </div>
-
-    <div class="feat-card">
-      <div class="feat-icon icon-green">🏆</div>
-      <h3>Contributor Dashboard</h3>
-      <p>Track your own annotations, up-votes, and reproducibility tags. Download a verifiable academic contribution record — a new currency for open-science credit.</p>
-    </div>
-  </div>
-</section>
-
-<!-- HOW IT WORKS -->
-<section class="section" id="how" style="padding-top:0">
-  <div class="section-label">How It Works</div>
-  <div class="section-title">Five seconds from open to insight</div>
-  <div class="steps">
-    <div class="step">
-      <div class="step-num">1</div>
-      <div>
-        <h3>Open any biomedical paper</h3>
-        <p>Navigate to a PubMed abstract, a Nature/Cell/Science article, or a preprint. BioPilot activates silently in the background.</p>
+  <section class="sites">
+    <div class="wrap">
+      <div class="eyebrow">Comment categories</div>
+      <h2>Every comment is a clear signal</h2>
+      <p class="lede">Built around how scientists actually evaluate a paper.</p>
+      <div class="cats">
+        <span class="cat-badge c1">✅ Reproduced</span>
+        <span class="cat-badge c2">❌ Couldn't reproduce</span>
+        <span class="cat-badge c3">📋 Missing method detail</span>
+        <span class="cat-badge c4">🧫 Reagent problem</span>
+        <span class="cat-badge c5">🖼 Image concern</span>
+        <span class="cat-badge c6">📊 Data / stats concern</span>
+        <span class="cat-badge c7">❓ Question</span>
       </div>
     </div>
-    <div class="step">
-      <div class="step-num">2</div>
-      <div>
-        <h3>Silent scan</h3>
-        <p>The extension scans the full text for catalogue numbers, RRIDs, DOIs, and known cell-line names in milliseconds — no page reload required.</p>
+  </section>
+
+  <section class="why">
+    <div class="wrap">
+      <div class="eyebrow">Why install it</div>
+      <h2>Read smarter, contribute meaningfully</h2>
+      <ul>
+        <li><span class="check">✓</span><span>Catch problematic reagents <strong>before</strong> they cost you an experiment.</span></li>
+        <li><span class="check">✓</span><span>See whether others could reproduce a result — <strong>the single most useful thing</strong> to know about a paper.</span></li>
+        <li><span class="check">✓</span><span>Contribute your own bench experience and build a verifiable record of your scientific contributions.</span></li>
+        <li><span class="check">✓</span><span>Stay anonymous when you need to — without opening the door to spam or trolling.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="sites">
+    <div class="wrap">
+      <div class="eyebrow">Works where you read</div>
+      <h2>20+ journals &amp; preprint servers</h2>
+      <p class="lede">Detection works automatically on any supported paper page.</p>
+      <div class="chips">
+        <span class="chip">PubMed</span>
+        <span class="chip">PMC</span>
+        <span class="chip">Europe PMC</span>
+        <span class="chip">bioRxiv</span>
+        <span class="chip">medRxiv</span>
+        <span class="chip">Nature</span>
+        <span class="chip">Science</span>
+        <span class="chip">Cell</span>
+        <span class="chip">ScienceDirect</span>
+        <span class="chip">Springer</span>
+        <span class="chip">Wiley</span>
+        <span class="chip">Oxford</span>
+        <span class="chip">PLOS</span>
+        <span class="chip">Frontiers</span>
+        <span class="chip">MDPI</span>
+        <span class="chip">eLife</span>
+        <span class="chip">PNAS</span>
+        <span class="chip">BMC</span>
+        <span class="chip">EMBO Press</span>
+        <span class="chip">ASM</span>
+        <span class="chip">JCB / JEM</span>
+        <span class="chip">Cold Spring Harbor</span>
+        <span class="chip">Taylor &amp; Francis</span>
+        <span class="chip">SAGE</span>
       </div>
     </div>
-    <div class="step">
-      <div class="step-num">3</div>
-      <div>
-        <h3>Visual overlays appear</h3>
-        <p>Risky reagents get a red underline; verified ones get green. A bubble in the margin shows how many PubPeer comments exist. Everything is subtle — it doesn't get in your way.</p>
-      </div>
-    </div>
-    <div class="step">
-      <div class="step-num">4</div>
-      <div>
-        <h3>Hover or click for detail</h3>
-        <p>Hover over any tagged reagent for its identity card. Click the BioPilot icon in the toolbar to trigger the AI image-consistency audit on the current page.</p>
-      </div>
-    </div>
-    <div class="step">
-      <div class="step-num">5</div>
-      <div>
-        <h3>Contribute back</h3>
-        <p>Spotted a missing protocol step or a suspicious figure? Add a structured comment in two clicks. Your ORCID ties it to your scholarly identity — no anonymous trolling.</p>
-      </div>
-    </div>
-  </div>
-</section>
+  </section>
 
-<!-- DATA SOURCES -->
-<section class="section" id="data" style="padding-top:0">
-  <div class="section-label">Data Sources</div>
-  <div class="section-title">Built on trusted scientific databases</div>
-  <div class="sources-grid">
-    <div class="source-card">
-      <div class="src-name">Cellosaurus / Expasy</div>
-      <div class="src-desc">Cell line identity and cross-contamination history. Powers the reagent identity card.</div>
+  <section>
+    <div class="privacy-strip">
+      <h2>Your privacy, respected</h2>
+      <p>Your email is stored only as a hash. We never sell data, show ads, or run third-party trackers. The extension only acts on supported journal pages.</p>
+      <a href="privacy.html">Read the privacy policy →</a>
     </div>
-    <div class="source-card">
-      <div class="src-name">ICLAC</div>
-      <div class="src-desc">Authoritative list of misidentified and cross-contaminated cell lines, curated by NCBI.</div>
-    </div>
-    <div class="source-card">
-      <div class="src-name">PubPeer API</div>
-      <div class="src-desc">Real-time comment counts and summaries for any DOI, surfaced inline without leaving the page.</div>
-    </div>
-    <div class="source-card">
-      <div class="src-name">Retraction Watch</div>
-      <div class="src-desc">Flags papers or reagents associated with retracted publications or ongoing investigations.</div>
-    </div>
-    <div class="source-card">
-      <div class="src-name">ORCID API</div>
-      <div class="src-desc">Authenticates reviewer identity without exposing affiliation — verified pseudonymity.</div>
-    </div>
-    <div class="source-card">
-      <div class="src-name">NCBI / RRIDs</div>
-      <div class="src-desc">Research Resource Identifiers for antibodies, plasmids, and model organisms.</div>
-    </div>
-  </div>
-</section>
+  </section>
 
-<!-- KPI STRIP -->
-<div class="kpi-strip">
-  <div class="kpi">
-    <div class="kpi-num">~2 M</div>
-    <div class="kpi-label">New biomedical papers per year with unverified reagents</div>
-  </div>
-  <div class="kpi">
-    <div class="kpi-num">50%</div>
-    <div class="kpi-label">Of preclinical studies fail to reproduce (Begley & Ellis, Nature 2012)</div>
-  </div>
-  <div class="kpi">
-    <div class="kpi-num">~30%</div>
-    <div class="kpi-label">Of HeLa-dependent studies used misidentified cell lines at some point</div>
-  </div>
-  <div class="kpi">
-    <div class="kpi-num">5 sec</div>
-    <div class="kpi-label">Time to first reagent insight after installing BioPilot</div>
-  </div>
-</div>
+  <footer>
+    <p>BioPilot · Built for researchers who care about reproducible science.</p>
+    <p style="margin-top:6px">
+      <a href="privacy.html">Privacy</a> ·
+      <a href="mailto:fuweiqiang68@gmail.com">Contact</a>
+    </p>
+  </footer>
 
-<!-- INSTALL CTA -->
-<section class="section" id="install" style="text-align:center;">
-  <div class="section-label">Early Access</div>
-  <div class="section-title">Join the waitlist</div>
-  <p class="section-sub" style="margin: 0 auto 2rem;">BioPilot is in active development. Sign up to get early access when the Chrome extension launches.</p>
-  <form style="display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap;" onsubmit="return false;">
-    <input
-      type="email"
-      placeholder="your@institution.edu"
-      style="padding:.6rem 1rem;border-radius:8px;border:1px solid var(--border);background:var(--card);color:var(--text);font-size:.95rem;min-width:260px;outline:none;"
-    />
-    <button class="btn-primary" style="padding:.6rem 1.4rem;font-size:.95rem;">Notify me</button>
-  </form>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <p style="margin-bottom:.5rem;">
-    <strong style="color:var(--text);">BioPilot</strong> — Making biomedical research trustworthy, one paper at a time.
-  </p>
-  <p>Built for researchers, by researchers &bull; <a href="mailto:fuweiqiang68@gmail.com">Contact</a></p>
-</footer>
-
+  <script>
+    // Drop your Chrome Web Store URL here once published:
+    var STORE_URL = "";
+    if (STORE_URL) document.getElementById("install-link").href = STORE_URL;
+  </script>
 </body>
 </html>
