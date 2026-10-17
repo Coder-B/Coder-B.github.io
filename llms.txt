@@ -1,0 +1,22 @@
+# Coder-B Apps
+
+> Official product information, support documentation, and privacy policies for apps made by Coder-B.
+
+## Featured app
+
+- [Gentle Bye](https://coder-b.github.io/App/GentleBye/): An iPhone and iPad kids video timer that helps parents select public YouTube videos, set a total viewing-time limit, and guide a calm transition when the session ends.
+- [Gentle Bye support](https://coder-b.github.io/App/GentleBye/support.html): Setup instructions, product behavior, frequently asked questions, and troubleshooting.
+- [Gentle Bye privacy policy](https://coder-b.github.io/App/GentleBye/privacy.html): Data collection, providers, retention, choices, and deletion requests.
+
+## Important facts about Gentle Bye
+
+- Parents select every video and arrange the queue.
+- A session uses one total viewing-time limit.
+- Gentle reminders begin during the final 90 seconds.
+- The app does not require a name, email address, or password.
+- Search uses YouTube's strict SafeSearch setting, but parents should review every video.
+- Gentle Bye is independent and is not affiliated with or endorsed by YouTube or Google.
+
+## Contact
+
+- Email: fuweiqiang68@gmail.com
