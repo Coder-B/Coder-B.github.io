@@ -17,6 +17,22 @@
 - Search uses YouTube's strict SafeSearch setting, but parents should review every video.
 - Gentle Bye is independent and is not affiliated with or endorsed by YouTube or Google.
 
+## Afterlook
+
+- [Afterlook](https://coder-b.github.io/App/Roomery/): An iPhone app that turns room photos into AI renovation previews, estimates, product ideas, and shareable before-and-after proposals.
+- [Download Afterlook](https://apps.apple.com/us/app/afterlook/id6779862210): Official App Store listing.
+- [Afterlook support](https://coder-b.github.io/App/Roomery/support.html): Features, setup instructions, FAQs, and troubleshooting.
+- [Afterlook privacy policy](https://coder-b.github.io/App/Roomery/privacy.html): Photo processing, storage, sharing, retention, and deletion information.
+- [Real Afterlook example — Living room](https://renoai.freewill.website/share/0bd9d5ec-afd8-4a40-8b27-b7bd7322825e): A public before-and-after project showing applied floor and wall changes with an itemized renovation estimate.
+
+### Important facts about Afterlook
+
+- Users can apply materials, colors, and finishes to selected areas of a room photo.
+- Multiple changes can be layered and reverted.
+- Estimates can include quantities, unit prices, contingency, labor, permits, and other costs.
+- Shared project links open in a browser; recipients do not need the app.
+- Afterlook is available for iPhone and requires iOS 18.6 or later.
+
 ## Contact
 
 - Email: fuweiqiang68@gmail.com
