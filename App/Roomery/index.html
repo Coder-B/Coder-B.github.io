@@ -52,9 +52,24 @@
           "Smart product and finish suggestions"
         ],
         "subjectOf": {
-          "@type": "CreativeWork",
-          "name": "Living room renovation example",
-          "url": "https://renoai.freewill.website/share/0bd9d5ec-afd8-4a40-8b27-b7bd7322825e"
+          "@type": "ItemList",
+          "name": "Real Afterlook flooring comparison",
+          "itemListElement": [
+            {
+              "@type": "CreativeWork",
+              "position": 1,
+              "name": "Option A — Light Oak",
+              "url": "https://afterlook.swayra.app/share/47153d02-09b9-417c-86d3-44f45a47f234",
+              "offers": { "@type": "Offer", "price": "2075.20", "priceCurrency": "USD" }
+            },
+            {
+              "@type": "CreativeWork",
+              "position": 2,
+              "name": "Option B — Dark Walnut",
+              "url": "https://afterlook.swayra.app/share/f7f47ee9-e6c4-4ecd-b84b-27a5f9aa8f32",
+              "offers": { "@type": "Offer", "price": "2072.96", "priceCurrency": "USD" }
+            }
+          ]
         },
         "offers": {
           "@type": "Offer",
@@ -183,23 +198,43 @@
 
     <section class="real-example" aria-labelledby="example-title">
       <div class="example-copy">
-        <p class="section-label">Real Afterlook example</p>
-        <h2 id="example-title">A living room,<br>from idea to estimate.</h2>
-        <p>Explore a real shared project created with Afterlook. Compare the original room with its AI preview, review every applied change, and see how the project estimate comes together.</p>
-        <a class="example-link" href="https://renoai.freewill.website/share/0bd9d5ec-afd8-4a40-8b27-b7bd7322825e">Open the live example <span aria-hidden="true">↗</span></a>
+        <p class="section-label">Real Afterlook comparison</p>
+        <h2 id="example-title">Same room.<br>Two directions.</h2>
+        <p>Compare two real shared projects created with Afterlook. See how a lighter or darker floor changes the room, then open either option to review its preview and full estimate.</p>
+        <p class="comparison-note"><strong>$2.24 apart.</strong> The decision comes down to the look—not the budget.</p>
       </div>
-      <a class="example-card" href="https://renoai.freewill.website/share/0bd9d5ec-afd8-4a40-8b27-b7bd7322825e" aria-label="Open the real Living room Afterlook example">
-        <div class="example-topline"><span>Shared project</span><strong>Living room</strong></div>
-        <div class="example-preview" aria-hidden="true">
-          <div class="example-before"><i></i><span>Before</span></div>
-          <div class="example-after"><i></i><span>After</span></div>
-        </div>
-        <div class="example-details">
-          <div><span class="swatch walnut"></span><p><small>Floor</small>Dark walnut hardwood</p></div>
-          <div><span class="swatch gray"></span><p><small>Wall</small>Light gray satin</p></div>
-          <div class="estimate"><small>Includes</small><strong>Itemized estimate →</strong></div>
-        </div>
-      </a>
+      <div class="comparison-cards" aria-label="Compare two real Afterlook projects">
+        <article class="option-card option-light">
+          <div class="option-visual before-after" style="--split:50%">
+            <img src="flooring-before.webp" alt="Original flooring before the renovation preview">
+            <img class="after-image" src="flooring-light-oak.webp" alt="Room preview with Light Oak flooring">
+            <span class="option-letter" aria-hidden="true">A</span>
+            <span class="slider-line" aria-hidden="true"><i>↔</i></span>
+            <input type="range" min="0" max="100" value="50" aria-label="Drag to compare the original room and Light Oak preview">
+            <div class="image-labels" aria-hidden="true"><span>Before</span><span>After</span></div>
+          </div>
+          <div class="option-body">
+            <p>Option A</p>
+            <h3>Light Oak</h3>
+            <div><strong>$2,075.20</strong><a href="https://afterlook.swayra.app/share/47153d02-09b9-417c-86d3-44f45a47f234">View project ↗</a></div>
+          </div>
+        </article>
+        <article class="option-card option-dark">
+          <div class="option-visual before-after" style="--split:50%">
+            <img src="flooring-before.webp" alt="Original flooring before the renovation preview">
+            <img class="after-image" src="flooring-dark-walnut.webp" alt="Room preview with Dark Walnut flooring">
+            <span class="option-letter" aria-hidden="true">B</span>
+            <span class="slider-line" aria-hidden="true"><i>↔</i></span>
+            <input type="range" min="0" max="100" value="50" aria-label="Drag to compare the original room and Dark Walnut preview">
+            <div class="image-labels" aria-hidden="true"><span>Before</span><span>After</span></div>
+          </div>
+          <div class="option-body">
+            <p>Option B</p>
+            <h3>Dark Walnut</h3>
+            <div><strong>$2,072.96</strong><a href="https://afterlook.swayra.app/share/f7f47ee9-e6c4-4ecd-b84b-27a5f9aa8f32">View project ↗</a></div>
+          </div>
+        </article>
+      </div>
     </section>
 
     <section class="feature-band" id="features" aria-labelledby="features-title">
@@ -246,5 +281,12 @@
     <nav aria-label="Footer navigation"><a href="https://apps.apple.com/us/app/afterlook/id6779862210">App Store</a><a href="support.html">Support</a><a href="privacy.html">Privacy</a><a href="mailto:fuweiqiang68@gmail.com?subject=Afterlook">Contact</a></nav>
     <p class="copyright">© 2026 Afterlook · Made by Weiqiang Fu</p>
   </footer>
+  <script>
+    document.querySelectorAll('.before-after').forEach(function (comparison) {
+      comparison.querySelector('input[type="range"]').addEventListener('input', function (event) {
+        comparison.style.setProperty('--split', event.target.value + '%');
+      });
+    });
+  </script>
 </body>
 </html>

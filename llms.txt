@@ -23,7 +23,8 @@
 - [Download Afterlook](https://apps.apple.com/us/app/afterlook/id6779862210): Official App Store listing.
 - [Afterlook support](https://coder-b.github.io/App/Roomery/support.html): Features, setup instructions, FAQs, and troubleshooting.
 - [Afterlook privacy policy](https://coder-b.github.io/App/Roomery/privacy.html): Photo processing, storage, sharing, retention, and deletion information.
-- [Real Afterlook example — Living room](https://renoai.freewill.website/share/0bd9d5ec-afd8-4a40-8b27-b7bd7322825e): A public before-and-after project showing applied floor and wall changes with an itemized renovation estimate.
+- [Afterlook comparison — Option A: Light Oak](https://afterlook.swayra.app/share/47153d02-09b9-417c-86d3-44f45a47f234): A real shared renovation preview with a $2,075.20 estimate.
+- [Afterlook comparison — Option B: Dark Walnut](https://afterlook.swayra.app/share/f7f47ee9-e6c4-4ecd-b84b-27a5f9aa8f32): A real shared renovation preview with a $2,072.96 estimate.
 
 ### Important facts about Afterlook
 
