@@ -29,6 +29,14 @@ h1 em { font-style:normal; color:var(--orange); }
 .text-link { text-decoration:none; font-size:13px; font-weight:700; }.text-link span { color:var(--orange); margin-left:5px; }
 .hero-meta { color:#908c84; font-size:11px; margin:17px 0 0; }
 .visual-stage { position:relative; height:500px; overflow:hidden; background:#cdc8bd; border-radius:4px; box-shadow:0 30px 80px rgba(42,36,27,.18); }
+.hero-real>img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+.hero-real .after-image { clip-path:inset(0 0 0 var(--split)); }
+.hero-real input { position:absolute; z-index:6; inset:0; width:100%; height:100%; margin:0; opacity:0; cursor:ew-resize; touch-action:none; }
+.hero-real:focus-within { outline:3px solid var(--orange); outline-offset:4px; }
+.hero-slider-line { position:absolute; z-index:5; left:var(--split); top:0; bottom:0; width:2px; background:#fff; transform:translateX(-50%); pointer-events:none; }
+.hero-slider-line i { position:absolute; left:50%; top:50%; width:44px; height:44px; display:grid; place-items:center; border-radius:50%; background:#fff; color:var(--ink); box-shadow:0 8px 20px rgba(0,0,0,.2); font-style:normal; transform:translate(-50%,-50%); }
+.real-project-badge { position:absolute; z-index:7; right:18px; bottom:18px; padding:10px 13px; border-radius:6px; background:rgba(23,22,18,.86); color:#fff; text-decoration:none; font-size:10px; font-weight:700; letter-spacing:.04em; }
+.real-project-badge:hover { background:var(--orange); }
 .room { position:absolute; inset:0; overflow:hidden; }.room-before { clip-path:polygon(0 0,49% 0,49% 100%,0 100%); background:linear-gradient(#c8c1b6 0 65%,#a99578 65%); }.room-after { clip-path:polygon(51% 0,100% 0,100% 100%,51% 100%); background:linear-gradient(#7e9180 0 65%,#c79965 65%); }
 .window { position:absolute; width:27%; height:42%; right:12%; top:12%; background:linear-gradient(150deg,#d8e8e8,#a9c4ca); border:10px solid rgba(255,255,255,.78); box-shadow:0 0 0 2px rgba(0,0,0,.06); }
 .wall-art { position:absolute; width:16%; height:25%; left:12%; top:18%; border:7px solid rgba(255,255,255,.5); background:linear-gradient(140deg,#504d46 50%,#d8a06c 50%); }
