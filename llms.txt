@@ -19,10 +19,11 @@
 
 ## Afterlook
 
-- [Afterlook](https://coder-b.github.io/App/Roomery/): An iPhone app that turns room photos into AI renovation previews, estimates, product ideas, and shareable before-and-after proposals.
+- [Afterlook](https://coder-b.github.io/App/Afterlook/): An iPhone app that turns room photos into AI renovation previews, estimates, product ideas, and shareable before-and-after proposals.
 - [Download Afterlook](https://apps.apple.com/us/app/afterlook/id6779862210): Official App Store listing.
-- [Afterlook support](https://coder-b.github.io/App/Roomery/support.html): Features, setup instructions, FAQs, and troubleshooting.
-- [Afterlook privacy policy](https://coder-b.github.io/App/Roomery/privacy.html): Photo processing, storage, sharing, retention, and deletion information.
+- [AI renovation preview guide](https://coder-b.github.io/App/Afterlook/renovation-preview-guide.html): What AI renovation previews are, how accurate they are, how to take a useful photo, and how to use previews and estimates responsibly.
+- [Afterlook support](https://coder-b.github.io/App/Afterlook/support.html): Features, setup instructions, FAQs, and troubleshooting.
+- [Afterlook privacy policy](https://coder-b.github.io/App/Afterlook/privacy.html): Photo processing, storage, sharing, retention, and deletion information.
 - [Afterlook comparison — Option A: Light Oak](https://afterlook.swayra.app/share/47153d02-09b9-417c-86d3-44f45a47f234): A real shared renovation preview with a $2,075.20 estimate.
 - [Afterlook comparison — Option B: Dark Walnut](https://afterlook.swayra.app/share/f7f47ee9-e6c4-4ecd-b84b-27a5f9aa8f32): A real shared renovation preview with a $2,072.96 estimate.
 
