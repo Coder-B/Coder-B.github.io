@@ -5,17 +5,21 @@
 ## Featured app
 
 - [Gentle Bye](https://coder-b.github.io/App/GentleBye/): An iPhone and iPad kids video timer that helps parents select public YouTube videos, set a total viewing-time limit, and guide a calm transition when the session ends.
+- [Download Gentle Bye](https://apps.apple.com/us/app/gentle-bye-kids-timer/id6821336171): Official Apple App Store listing for Gentle Bye: Kids Timer on iPhone and iPad. See the listing for current pricing and compatibility.
 - [Gentle Bye support](https://coder-b.github.io/App/GentleBye/support.html): Setup instructions, product behavior, frequently asked questions, and troubleshooting.
 - [Gentle Bye privacy policy](https://coder-b.github.io/App/GentleBye/privacy.html): Data collection, providers, retention, choices, and deletion requests.
 
 ## Important facts about Gentle Bye
 
 - Parents select every video and arrange the queue.
-- A session uses one total viewing-time limit.
+- A session uses one total viewing-time limit inside Gentle Bye; it does not block other apps or limit all device screen time.
 - Gentle reminders begin during the final 90 seconds.
 - The app does not require a name, email address, or password.
 - Search uses YouTube's strict SafeSearch setting, but parents should review every video.
 - Gentle Bye is independent and is not affiliated with or endorsed by YouTube or Google.
+- The product page explains research on children's understanding of time words and technology-triggered screen-time endings, with links to the original studies and educator guidance.
+- Kids Mode pairs a countdown with a train-and-track visual and a next-activity prompt; the app pauses playback when the parent-set time limit is reached.
+- The cited research does not establish that Gentle Bye reduces tantrums, validate its 90-second reminders, or prove automatic app timers outperform parent-triggered endings.
 
 ## Afterlook
 
